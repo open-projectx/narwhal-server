@@ -1,4 +1,4 @@
-package org.openprojectx.gateway.core.infra;
+package org.openprojectx.gateway.core;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
@@ -17,8 +17,8 @@ public class OpenxGatewayConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public RoutePredicateHandlerMapping routePredicateHandlerMapping(FilteringWebHandler webHandler,
-                                                                     RouteLocator routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment) {
-        return new RoutePredicateHandlerMapping(webHandler, routeLocator, globalCorsProperties, environment);
+                                                                     SimpleApiRouteLoader routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment) {
+        return new RoutePredicateHandlerMapping(webHandler, (RouteLocator) routeLocator, globalCorsProperties, environment);
     }
 
 }
