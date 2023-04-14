@@ -1,4 +1,4 @@
-package org.openprojectx.gateway.core;
+package org.openprojectx.gateway.core.route;
 
 import org.openprojectx.gateway.core.repository.ApiRepository;
 import org.openprojectx.gateway.core.repository.AppRepository;

@@ -1,4 +1,4 @@
-package org.openprojectx.gateway.core;
+package org.openprojectx.gateway.core.route;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.Route;

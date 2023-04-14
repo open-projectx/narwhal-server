@@ -1,10 +1,10 @@
 package org.openprojectx.gateway.core;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.openprojectx.gateway.core.route.SimpleApiRouteLoader;
+import org.openprojectx.gateway.core.handler.SimpleApiRoutePredicateHandlerMapping;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.handler.FilteringWebHandler;
 import org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping;
-import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

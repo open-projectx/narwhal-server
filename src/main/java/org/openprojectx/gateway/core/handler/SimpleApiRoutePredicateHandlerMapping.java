@@ -1,5 +1,6 @@
-package org.openprojectx.gateway.core;
+package org.openprojectx.gateway.core.handler;
 
+import org.openprojectx.gateway.core.route.ApiRouteLocator;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.handler.FilteringWebHandler;
 import org.springframework.cloud.gateway.route.Route;
