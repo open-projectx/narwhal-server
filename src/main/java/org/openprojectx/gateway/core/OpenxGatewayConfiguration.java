@@ -15,10 +15,9 @@ public class OpenxGatewayConfiguration {
 
     @Primary
     @Bean
-    @ConditionalOnMissingBean
     public RoutePredicateHandlerMapping routePredicateHandlerMapping(FilteringWebHandler webHandler,
                                                                      SimpleApiRouteLoader routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment) {
-        return new RoutePredicateHandlerMapping(webHandler, (RouteLocator) routeLocator, globalCorsProperties, environment);
+        return new SimpleApiRoutePredicateHandlerMapping(webHandler, routeLocator, globalCorsProperties, environment);
     }
 
 }
