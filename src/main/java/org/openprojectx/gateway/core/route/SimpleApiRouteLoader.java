@@ -8,25 +8,12 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-import java.util.Collections;
-import java.util.List;
-
 @Component
-public class SimpleApiRouteLoader implements RouteLocator {
+public class SimpleApiRouteLoader {
     private AppRepository appRepository;
     private GroupRepository groupRepository;
     private ApiRepository apiRouteRepository;
 
-    /**
-     * composite all routes with app group api
-     */
-    public List<Route> loadAll() {
-        return Collections.emptyList();
-    }
 
 
-    @Override
-    public Flux<Route> getRoutes() {
-        return Flux.empty();
-    }
 }

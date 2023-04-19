@@ -14,10 +14,11 @@ import reactor.core.publisher.Mono;
  */
 public class SimpleApiRoutePredicateHandlerMapping extends org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping {
 
-    private ApiRouteLocator apiRouteLocator;
+    private final ApiRouteLocator apiRouteLocator;
 
-    public SimpleApiRoutePredicateHandlerMapping(FilteringWebHandler webHandler, RouteLocator routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment) {
+    public SimpleApiRoutePredicateHandlerMapping(FilteringWebHandler webHandler, RouteLocator routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment, ApiRouteLocator apiRouteLocator) {
         super(webHandler, routeLocator, globalCorsProperties, environment);
+        this.apiRouteLocator = apiRouteLocator;
     }
 
     @Override
