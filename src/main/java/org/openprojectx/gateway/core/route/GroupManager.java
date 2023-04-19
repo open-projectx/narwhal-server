@@ -4,11 +4,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+/**
+ * @author weian404
+ * <p>
+ * group refresh and match
+ */
 @Component
-public class GroupLocator implements InfoLocator<GroupRoute> {
+public class GroupManager {
 
-    @Override
     public Mono<GroupRoute> match(ServerWebExchange serverWebExchange) {
-        return Mono.just(new GroupRoute(exchange -> Mono.just(true)));
+        return Mono.just(new GroupRoute());
     }
 }

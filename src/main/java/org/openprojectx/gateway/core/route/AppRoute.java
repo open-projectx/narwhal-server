@@ -1,15 +1,21 @@
 package org.openprojectx.gateway.core.route;
 
+import lombok.Builder;
+import lombok.Getter;
+import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.util.List;
 
-@lombok.Data
+@Getter
+@Builder
 public class AppRoute {
 
-    private final AsyncPredicate<ServerWebExchange> predicate;
+    private String id;
 
-    private List<GroupRoute> groupRoutes;
+    private AsyncPredicate<ServerWebExchange> predicate;
+
+    private List<GatewayFilter> filters;
 
 }

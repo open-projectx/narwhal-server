@@ -12,9 +12,9 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 @RequiredArgsConstructor
 public class SimpleApiRouteLocator implements ApiRouteLocator {
 
-    private final AppLocator appRouteLocator;
-    private final GroupLocator groupRouteLocator;
-    private final ApiLocator apiLocator;
+    private final AppManager appRouteLocator;
+    private final GroupManager groupRouteLocator;
+    private final ApiManager apiManager;
 
     /**
      * match app
@@ -30,7 +30,7 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
                 })
                 .flatMap(group -> {
                     exchange.getAttributes().put(GATEWAY_PREDICATE_ROUTE_ATTR, group);
-                    return apiLocator.match(exchange);
+                    return apiManager.match(exchange);
                 })
                 .flatMap(api -> {
                     exchange.getAttributes().put(GATEWAY_PREDICATE_ROUTE_ATTR, api);
