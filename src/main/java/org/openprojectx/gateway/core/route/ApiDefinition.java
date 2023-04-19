@@ -2,6 +2,7 @@ package org.openprojectx.gateway.core.route;
 
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.route.Route;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +23,7 @@ public class ApiDefinition {
 
     private Map<String, Object> metadata = new HashMap<>();
 
-    private List<ApiGroupDefinition> apiGroups = new ArrayList<>();
-
     private int order = 0;
+
+    private Route route;
 }
