@@ -25,7 +25,7 @@ openx-properties:
       apis:
         - api-id: hello
           predicates:
-            - Path=/hello/world
+            - Path=/world
           filters:
             - StripPrefix=1
           metadata:

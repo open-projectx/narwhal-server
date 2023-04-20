@@ -65,7 +65,7 @@ public class GatewayFilterSupport {
                     .properties(definition.getArgs())
                     .eventFunction((bound, properties) -> new FilterArgsEvent(
                             // TODO: why explicit cast needed or java compile fails
-                            id, id, properties))
+                            id, id, (Map<String, Object>)properties))
                     .bind();
             // @formatter:on
 
