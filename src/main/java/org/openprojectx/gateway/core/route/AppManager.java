@@ -26,7 +26,7 @@ public class AppManager {
         List<GatewayFilter> gatewayFilters = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
         List<AppDefinition> appDefinitions = openxProperties.getApps();
         List<AppRoute> appRoutes = appDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();
-        for(AppRoute appRoute : appRoutes) {
+        for (AppRoute appRoute : appRoutes) {
             appRoute.getFilters().addAll(gatewayFilters);
         }
         appRouteFlux = Flux.fromIterable(appRoutes);

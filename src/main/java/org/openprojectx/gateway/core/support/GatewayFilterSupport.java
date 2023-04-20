@@ -2,7 +2,6 @@ package org.openprojectx.gateway.core.support;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.event.FilterArgsEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -14,7 +13,10 @@ import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class GatewayFilterSupport {
@@ -25,14 +27,12 @@ public class GatewayFilterSupport {
 
     private final Map<String, GatewayFilterFactory> gatewayFilterFactories = new HashMap<>();
 
-    private final GatewayProperties gatewayProperties;
 
+    @SuppressWarnings("unchecked")
     public GatewayFilterSupport(
-            List<GatewayFilterFactory> gatewayFilterFactories,
-            GatewayProperties gatewayProperties, ConfigurationService configurationService) {
+            List<GatewayFilterFactory> gatewayFilterFactories, ConfigurationService configurationService) {
         this.configurationService = configurationService;
         gatewayFilterFactories.forEach(factory -> this.gatewayFilterFactories.put(factory.name(), factory));
-        this.gatewayProperties = gatewayProperties;
     }
 
 
@@ -65,14 +65,13 @@ public class GatewayFilterSupport {
                     .properties(definition.getArgs())
                     .eventFunction((bound, properties) -> new FilterArgsEvent(
                             // TODO: why explicit cast needed or java compile fails
-                            id, id, (Map<String, Object>) properties))
+                            id, id, properties))
                     .bind();
             // @formatter:on
 
             // some filters require routeId
             // TODO: is there a better place to apply this?
-            if (configuration instanceof HasRouteId) {
-                HasRouteId hasRouteId = (HasRouteId) configuration;
+            if (configuration instanceof HasRouteId hasRouteId) {
                 hasRouteId.setRouteId(id);
             }
 

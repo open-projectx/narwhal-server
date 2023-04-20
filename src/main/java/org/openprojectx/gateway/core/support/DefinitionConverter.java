@@ -7,9 +7,6 @@ import org.openprojectx.gateway.core.route.GroupRoute;
 import org.openprojectx.gateway.core.route.definition.ApiDefinition;
 import org.openprojectx.gateway.core.route.definition.AppDefinition;
 import org.openprojectx.gateway.core.route.definition.GroupDefinition;
-import org.openprojectx.gateway.core.support.AsyncPredicateSupport;
-import org.openprojectx.gateway.core.support.GatewayFilterSupport;
-import org.openprojectx.gateway.core.support.RouteDefinitionSupport;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Component;
 
