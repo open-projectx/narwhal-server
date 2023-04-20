@@ -1,16 +1,21 @@
-package org.openprojectx.gateway.core.route;
+package org.openprojectx.gateway.core.route.definition;
 
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
-import org.springframework.cloud.gateway.route.Route;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @lombok.Data
-public class ApiDefinition {
-    private String id;
+public class AppDefinition {
+
+    @NotEmpty
+    @Valid
+    private String appId;
 
     @NotEmpty
     @Valid
@@ -19,11 +24,8 @@ public class ApiDefinition {
     @Valid
     private List<FilterDefinition> filters = new ArrayList<>();
 
-    private List<FilterDefinition> disabledFilters = new ArrayList<>();
-
     private Map<String, Object> metadata = new HashMap<>();
 
     private int order = 0;
 
-    private Route route;
 }

@@ -1,0 +1,45 @@
+openx-properties:
+  apps:
+    - app-id: hello
+      predicates:
+        - Host=localhost:8080
+      filters:
+        - StripPrefix=1
+    - app-id: world
+      predicates:
+        - Path=/world
+      filters:
+        - StripPrefix=1
+  groups:
+    - app-id: hello
+      group-id: hello
+      predicates:
+        - Path=/hello/world
+      filters:
+        - StripPrefix=1
+      metadata:
+        - key: version
+          value: 1.0.0
+        - key: description
+          value: hello
+      apis:
+        - api-id: hello
+          predicates:
+            - Path=/hello/world
+          filters:
+            - StripPrefix=1
+          metadata:
+            - key: version
+              value: 1.0.0
+            - key: description
+              value: hello
+          backend:
+            id: baidu
+            uri: https://www.baidu.com
+            filters:
+              - StripPrefix=1
+            metadata:
+              - key: version
+                value: 1.0.0
+              - key: description
+                value: hello

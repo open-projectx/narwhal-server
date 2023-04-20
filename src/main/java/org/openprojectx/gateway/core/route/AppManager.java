@@ -1,6 +1,8 @@
 package org.openprojectx.gateway.core.route;
 
-import lombok.RequiredArgsConstructor;
+import org.openprojectx.gateway.core.configuration.OpenxProperties;
+import org.openprojectx.gateway.core.route.definition.AppDefinition;
+import org.openprojectx.gateway.core.route.definition.DefinitionConverter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.stereotype.Component;
@@ -18,24 +20,23 @@ import java.util.List;
 @Component
 public class AppManager {
 
-    private final List<GatewayFilter> globalFilterList;
-    private Flux<AppRoute> appRouteFlux;
+    private final Flux<AppRoute> appRouteFlux;
 
-    public AppManager(List<GlobalFilter> globalFilterList) {
-        this.globalFilterList = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
-        AppRoute appRoute = AppRoute.builder()
-                .predicate(exchange -> Mono.just(true))
-                .build();
-        appRouteFlux = Flux.just(appRoute);
-
+    public AppManager(OpenxProperties openxProperties, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
+        List<GatewayFilter> gatewayFilters = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
+        List<AppDefinition> appDefinitions = openxProperties.getApps();
+        List<AppRoute> appRoutes = appDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();
+        for(AppRoute appRoute : appRoutes) {
+            appRoute.getFilters().addAll(gatewayFilters);
+        }
+        appRouteFlux = Flux.fromIterable(appRoutes);
     }
 
     public Mono<AppRoute> match(ServerWebExchange serverWebExchange) {
-        Mono<AppRoute> appRoute = appRouteFlux.concatMap(app ->
+        return appRouteFlux.concatMap(app ->
                 Mono.just(app)
                         .filterWhen(a -> a.getPredicate().apply(serverWebExchange))
         ).next();
-        return appRoute;
     }
 
 

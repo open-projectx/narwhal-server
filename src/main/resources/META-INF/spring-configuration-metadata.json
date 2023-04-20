@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "openx-properties",
+      "type": "org.openprojectx.gateway.core.configuration.OpenXProperties",
+      "sourceType": "org.openprojectx.gateway.core.configuration.OpenXProperties"
+    }
+  ]
+}

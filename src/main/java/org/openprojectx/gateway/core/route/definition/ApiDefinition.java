@@ -1,7 +1,8 @@
-package org.openprojectx.gateway.core.route;
+package org.openprojectx.gateway.core.route.definition;
 
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinition;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -11,12 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 @lombok.Data
+public class ApiDefinition {
+    private String apiId;
 
-public class AppDefinition {
-    private String id;
-
-    @NotEmpty
-    @Valid
     private List<PredicateDefinition> predicates = new ArrayList<>();
 
     @Valid
@@ -24,8 +22,9 @@ public class AppDefinition {
 
     private Map<String, Object> metadata = new HashMap<>();
 
-    private List<ApiGroupDefinition> apiGroups = new ArrayList<>();
-
     private int order = 0;
 
+    @NotEmpty
+    @Valid
+    private RouteDefinition backend;
 }

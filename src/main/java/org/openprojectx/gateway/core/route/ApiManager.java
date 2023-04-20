@@ -1,18 +1,17 @@
 package org.openprojectx.gateway.core.route;
 
-import lombok.RequiredArgsConstructor;
-import org.openprojectx.gateway.core.support.AsyncPredicateSupport;
-import org.openprojectx.gateway.core.support.GatewayFilterSupport;
-import org.springframework.cloud.gateway.filter.FilterDefinition;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
-import org.springframework.cloud.gateway.route.Route;
+import org.openprojectx.gateway.core.configuration.OpenxProperties;
+import org.openprojectx.gateway.core.constant.Constants;
+import org.openprojectx.gateway.core.route.definition.ApiDefinition;
+import org.openprojectx.gateway.core.route.definition.DefinitionConverter;
+import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author weian404
@@ -20,35 +19,27 @@ import java.util.List;
  * api refresh and match
  */
 @Component
-@RequiredArgsConstructor
 public class ApiManager {
 
-    private final AsyncPredicateSupport asyncPredicateSupport;
-    private final GatewayFilterSupport gatewayFilterSupport;
+    private final ConcurrentHashMap<String, Flux<ApiRoute>> apiRouteMap = new ConcurrentHashMap<>();
 
+    public ApiManager(OpenxProperties openxProperties, DefinitionConverter definitionConverter) {
+        List<GroupDefinition> groupDefinitions = openxProperties.getGroups();
+        for (GroupDefinition groupDefinition : groupDefinitions) {
+            String groupId = groupDefinition.getGroupId();
+            List<ApiDefinition> apis = groupDefinition.getApis();
+            List<ApiRoute> apiRoutes = apis.stream().map(definitionConverter::convertToApiRoute).toList();
+            this.apiRouteMap.put(groupId, Flux.fromIterable(apiRoutes));
+        }
+    }
 
     public Mono<ApiRoute> match(ServerWebExchange serverWebExchange) {
-        ApiDefinition apiDefinition = new ApiDefinition();
-        apiDefinition.setId("baidu");
-        apiDefinition.setPredicates(List.of(new PredicateDefinition("Path=/baidu")));
-        apiDefinition.setFilters(List.of(new FilterDefinition("StripPrefix=1")));
-        apiDefinition.setRoute(new Route.AsyncBuilder()
-                .id("baidu")
-                .predicate(exchange -> true)
-                .uri("https://www.baidu.com")
-                .build());
-
-        ApiRoute baidu = from(apiDefinition);
-        return Mono.just(baidu);
+        GroupRoute groupRoute = (GroupRoute) serverWebExchange.getAttributes().get(Constants.GROUP_ROUTE);
+        String groupId = groupRoute.getId();
+        return this.apiRouteMap.get(groupId).concatMap(api ->
+                Mono.just(api)
+                        .filterWhen(a -> a.getPredicate().apply(serverWebExchange))
+        ).next();
     }
 
-    public ApiRoute from(ApiDefinition apiDefinition) {
-        ApiRoute build = ApiRoute.builder()
-                .id(apiDefinition.getId())
-                .predicate(asyncPredicateSupport.createAsyncPredicate(apiDefinition.getPredicates()))
-                .filters(gatewayFilterSupport.createFilters(apiDefinition.getId(), apiDefinition.getFilters()))
-                .route(apiDefinition.getRoute())
-                .build();
-        return build;
-    }
 }
