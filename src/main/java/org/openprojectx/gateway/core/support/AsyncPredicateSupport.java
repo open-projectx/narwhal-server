@@ -18,15 +18,15 @@ import java.util.Map;
 public class AsyncPredicateSupport {
     protected final Log logger = LogFactory.getLog(getClass());
 
-    private final Map<String, RoutePredicateFactory<Object>> predicates = new LinkedHashMap<>();
+    private final Map<String, RoutePredicateFactory> predicates = new LinkedHashMap<>();
     private final ConfigurationService configurationService;
 
-    public AsyncPredicateSupport(ConfigurationService configurationService, List<RoutePredicateFactory<Object>> predicates) {
+    public AsyncPredicateSupport(ConfigurationService configurationService, List<RoutePredicateFactory> predicates) {
         initFactories(predicates);
         this.configurationService = configurationService;
     }
 
-    private void initFactories(List<RoutePredicateFactory<Object>> predicates) {
+    private void initFactories(List<RoutePredicateFactory> predicates) {
         predicates.forEach(factory -> {
             String key = factory.name();
             if (this.predicates.containsKey(key)) {
@@ -58,6 +58,8 @@ public class AsyncPredicateSupport {
         return predicate;
     }
 
+
+    @SuppressWarnings("unchecked")
     private AsyncPredicate<ServerWebExchange> lookup(Object route, PredicateDefinition predicate) {
         RoutePredicateFactory<Object> factory = this.predicates.get(predicate.getName());
         if (factory == null) {

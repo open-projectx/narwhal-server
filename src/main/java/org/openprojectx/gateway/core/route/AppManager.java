@@ -2,7 +2,7 @@ package org.openprojectx.gateway.core.route;
 
 import org.openprojectx.gateway.core.configuration.OpenxProperties;
 import org.openprojectx.gateway.core.route.definition.AppDefinition;
-import org.openprojectx.gateway.core.route.definition.DefinitionConverter;
+import org.openprojectx.gateway.core.support.DefinitionConverter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.stereotype.Component;

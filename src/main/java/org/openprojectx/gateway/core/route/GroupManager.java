@@ -2,7 +2,7 @@ package org.openprojectx.gateway.core.route;
 
 import org.openprojectx.gateway.core.configuration.OpenxProperties;
 import org.openprojectx.gateway.core.constant.Constants;
-import org.openprojectx.gateway.core.route.definition.DefinitionConverter;
+import org.openprojectx.gateway.core.support.DefinitionConverter;
 import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;

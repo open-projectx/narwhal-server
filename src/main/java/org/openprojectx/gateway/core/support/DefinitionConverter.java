@@ -1,9 +1,12 @@
-package org.openprojectx.gateway.core.route.definition;
+package org.openprojectx.gateway.core.support;
 
 import lombok.RequiredArgsConstructor;
 import org.openprojectx.gateway.core.route.ApiRoute;
 import org.openprojectx.gateway.core.route.AppRoute;
 import org.openprojectx.gateway.core.route.GroupRoute;
+import org.openprojectx.gateway.core.route.definition.ApiDefinition;
+import org.openprojectx.gateway.core.route.definition.AppDefinition;
+import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.openprojectx.gateway.core.support.AsyncPredicateSupport;
 import org.openprojectx.gateway.core.support.GatewayFilterSupport;
 import org.openprojectx.gateway.core.support.RouteDefinitionSupport;
