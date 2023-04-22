@@ -1,5 +1,6 @@
 package org.openprojectx.gateway.core.route.definition;
 
+import org.openprojectx.gateway.core.process.ProcessFilter;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @lombok.Data
 public class ApiDefinition {
+
     private String apiId;
 
     private List<PredicateDefinition> predicates = new ArrayList<>();

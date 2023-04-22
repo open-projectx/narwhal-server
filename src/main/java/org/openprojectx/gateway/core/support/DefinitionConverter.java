@@ -5,7 +5,7 @@ import org.openprojectx.gateway.core.route.ApiRoute;
 import org.openprojectx.gateway.core.route.AppRoute;
 import org.openprojectx.gateway.core.route.GroupRoute;
 import org.openprojectx.gateway.core.route.definition.ApiDefinition;
-import org.openprojectx.gateway.core.route.definition.AppDefinition;
+import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
 import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Component;
@@ -24,13 +24,13 @@ public class DefinitionConverter {
     /**
      * read the definition yml file and return the definition object
      */
-    public AppRoute convertToAppRoute(AppDefinition appDefinition) {
+    public AppRoute convertToAppRoute(ClusterDefinition clusterDefinition) {
         return AppRoute.builder()
-                .id(appDefinition.getAppId())
-                .predicate(asyncPredicateSupport.createAsyncPredicate(appDefinition, appDefinition.getPredicates()))
-                .filters(gatewayFilterSupport.createFilters(appDefinition.getAppId(), appDefinition.getFilters()))
-                .metadata(appDefinition.getMetadata())
-                .order(appDefinition.getOrder())
+                .id(clusterDefinition.getAppId())
+                .predicate(asyncPredicateSupport.createAsyncPredicate(clusterDefinition, clusterDefinition.getPredicates()))
+                .filters(gatewayFilterSupport.createFilters(clusterDefinition.getAppId(), clusterDefinition.getFilters()))
+                .metadata(clusterDefinition.getMetadata())
+                .order(clusterDefinition.getOrder())
                 .build();
     }
 

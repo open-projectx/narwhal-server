@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @lombok.Data
-public class AppDefinition {
+public class ClusterDefinition {
 
     @NotEmpty
     @Valid

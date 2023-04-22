@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SimpleApiRouteLocator implements ApiRouteLocator {
     protected final Log logger = LogFactory.getLog(getClass());
-    private final AppManager appRouteLocator;
+    private final ClusterManager appRouteLocator;
     private final GroupManager groupRouteLocator;
     private final ApiManager apiManager;
 
@@ -29,10 +29,10 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
      */
     @Override
     public Mono<Route> lookupRoute(ServerWebExchange exchange) {
-        return appRouteLocator.match(exchange)
+        Mono<Route> routeMono = appRouteLocator.match(exchange)
                 .flatMap(app -> {
                     logger.info("app match success app " + app);
-                    exchange.getAttributes().put(Constants.APP_ROUTE, app);
+                    exchange.getAttributes().put(Constants.CLUSTER_ROUTE, app);
                     return groupRouteLocator.match(exchange);
                 })
                 .flatMap(group -> {
@@ -46,7 +46,7 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
                     return Mono.just(api.getBackend());
                 })
                 .map(r -> {
-                    AppRoute appRoute = (AppRoute) exchange.getAttributes().get(Constants.APP_ROUTE);
+                    AppRoute appRoute = (AppRoute) exchange.getAttributes().get(Constants.CLUSTER_ROUTE);
                     GroupRoute groupRoute = (GroupRoute) exchange.getAttributes().get(Constants.GROUP_ROUTE);
                     ApiRoute apiRoute = (ApiRoute) exchange.getAttributes().get(Constants.API_ROUTE);
                     List<GatewayFilter> list = new ArrayList<>();
@@ -67,6 +67,8 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
                             .build();
                 })
                 .switchIfEmpty(Mono.empty());
+        logger.info("composite route finish");
+        return routeMono;
     }
 
 

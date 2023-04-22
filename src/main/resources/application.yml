@@ -14,20 +14,15 @@ openx-properties:
     - app-id: hello
       group-id: hello
       predicates:
-        - Path=/hello/world
+        - Path=/hello/**
       filters:
         - StripPrefix=1
-      metadata:
-        - key: version
-          value: 1.0.0
-        - key: description
-          value: hello
       apis:
         - api-id: hello
           predicates:
-            - Path=/world
+            - Path=/hello/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
           metadata:
             - key: version
               value: 1.0.0
@@ -36,8 +31,8 @@ openx-properties:
           backend:
             id: baidu
             uri: https://www.baidu.com
-            filters:
-              - StripPrefix=1
+#            filters:
+#              - StripPrefix=2
             metadata:
               - key: version
                 value: 1.0.0
