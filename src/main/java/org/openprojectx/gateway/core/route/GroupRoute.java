@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.openprojectx.gateway.core.route.definition.GroupDefinition;
+import org.openprojectx.gateway.core.definition.GroupDefinition;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.web.server.ServerWebExchange;

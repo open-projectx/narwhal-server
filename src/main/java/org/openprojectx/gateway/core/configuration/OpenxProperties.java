@@ -1,7 +1,7 @@
 package org.openprojectx.gateway.core.configuration;
 
-import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
-import org.openprojectx.gateway.core.route.definition.GroupDefinition;
+import org.openprojectx.gateway.core.definition.ClusterDefinition;
+import org.openprojectx.gateway.core.definition.GroupDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

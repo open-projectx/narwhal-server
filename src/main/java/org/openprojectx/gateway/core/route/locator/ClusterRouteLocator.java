@@ -1,8 +1,8 @@
 package org.openprojectx.gateway.core.route.locator;
 
-import org.openprojectx.gateway.core.configuration.OpenxProperties;
 import org.openprojectx.gateway.core.route.ClusterRoute;
-import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
+import org.openprojectx.gateway.core.definition.ClusterDefinition;
+import org.openprojectx.gateway.core.definition.ClusterDefinitionCompositeLocator;
 import org.openprojectx.gateway.core.support.DefinitionConverter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -22,10 +22,12 @@ import java.util.List;
 public class ClusterRouteLocator {
 
     private final Flux<ClusterRoute> appRouteFlux;
+    private final ClusterDefinitionCompositeLocator clusterDefinitionLocator;
 
-    public ClusterRouteLocator(OpenxProperties openxProperties, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
+    public ClusterRouteLocator(ClusterDefinitionCompositeLocator clusterDefinitionLocator, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
+        this.clusterDefinitionLocator = clusterDefinitionLocator;
         List<GatewayFilter> gatewayFilters = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
-        List<ClusterDefinition> clusterDefinitions = openxProperties.getApps();
+        List<ClusterDefinition> clusterDefinitions = clusterDefinitionLocator.getClusterDefinitions().collectList().block();
         List<ClusterRoute> clusterRoutes = clusterDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();
         for (ClusterRoute clusterRoute : clusterRoutes) {
             clusterRoute.getFilters().addAll(gatewayFilters);

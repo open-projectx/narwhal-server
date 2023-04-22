@@ -1,6 +1,6 @@
 package org.openprojectx.gateway.core.repository;
 
-import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
+import org.openprojectx.gateway.core.definition.ClusterDefinition;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.openprojectx.gateway.core.route.definition;
+package org.openprojectx.gateway.core.definition;
 
 import lombok.EqualsAndHashCode;
 import org.openprojectx.gateway.core.process.ProcessFilter;

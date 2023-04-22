@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.openprojectx.gateway.core.route.ApiRoute;
 import org.openprojectx.gateway.core.route.ClusterRoute;
 import org.openprojectx.gateway.core.route.GroupRoute;
-import org.openprojectx.gateway.core.route.definition.ApiDefinition;
-import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
-import org.openprojectx.gateway.core.route.definition.GroupDefinition;
+import org.openprojectx.gateway.core.definition.ApiDefinition;
+import org.openprojectx.gateway.core.definition.ClusterDefinition;
+import org.openprojectx.gateway.core.definition.GroupDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Component;
 

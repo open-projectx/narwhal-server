@@ -1,6 +1,6 @@
 package org.openprojectx.gateway.core.repository;
 
-import org.openprojectx.gateway.core.route.definition.ApiDefinition;
+import org.openprojectx.gateway.core.definition.ApiDefinition;
 
 import java.util.List;
 
