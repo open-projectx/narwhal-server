@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class RefreshEventListener implements ApplicationListener<GatewayRefreshEvent> {
+public class GatewayRefreshEventListener implements ApplicationListener<GatewayRefreshEvent> {
     private final ClusterManager clusterManager;
     private final GroupManager groupManager;
     private final ApiManager apiManager;
