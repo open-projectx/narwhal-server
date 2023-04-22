@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openprojectx.gateway.core.constant.Constants;
+import org.openprojectx.gateway.core.route.locator.ApiRouteLocator;
+import org.openprojectx.gateway.core.route.locator.ClusterRouteLocator;
+import org.openprojectx.gateway.core.route.locator.GroupRouteLocator;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -16,11 +19,11 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class SimpleApiRouteLocator implements ApiRouteLocator {
+public class SimpleOpenxRouteLocator implements OpenxRouteLocator {
     protected final Log logger = LogFactory.getLog(getClass());
-    private final ClusterManager appRouteLocator;
-    private final GroupManager groupRouteLocator;
-    private final ApiManager apiManager;
+    private final ClusterRouteLocator appRouteLocator;
+    private final GroupRouteLocator groupRouteLocator;
+    private final ApiRouteLocator apiRouteLocator;
 
     /**
      * match app
@@ -38,7 +41,7 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
                 .flatMap(group -> {
                     logger.info("group match success group " + group);
                     exchange.getAttributes().put(Constants.GROUP_ROUTE, group);
-                    return apiManager.match(exchange);
+                    return apiRouteLocator.match(exchange);
                 })
                 .flatMap(api -> {
                     logger.info("api match success api " + api);

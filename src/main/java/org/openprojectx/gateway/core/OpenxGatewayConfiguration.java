@@ -1,7 +1,7 @@
 package org.openprojectx.gateway.core;
 
 import org.openprojectx.gateway.core.handler.SimpleApiRoutePredicateHandlerMapping;
-import org.openprojectx.gateway.core.route.ApiRouteLocator;
+import org.openprojectx.gateway.core.route.OpenxRouteLocator;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.handler.FilteringWebHandler;
 import org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping;
@@ -20,8 +20,8 @@ public class OpenxGatewayConfiguration {
                                                                      RouteLocator routeLocator,
                                                                      GlobalCorsProperties globalCorsProperties,
                                                                      Environment environment,
-                                                                     ApiRouteLocator apiRouteLocator) {
-        return new SimpleApiRoutePredicateHandlerMapping(webHandler, routeLocator, globalCorsProperties, environment, apiRouteLocator);
+                                                                     OpenxRouteLocator openxRouteLocator) {
+        return new SimpleApiRoutePredicateHandlerMapping(webHandler, routeLocator, globalCorsProperties, environment, openxRouteLocator);
     }
 
 }

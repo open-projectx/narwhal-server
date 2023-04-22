@@ -1,7 +1,9 @@
-package org.openprojectx.gateway.core.route;
+package org.openprojectx.gateway.core.route.locator;
 
 import org.openprojectx.gateway.core.configuration.OpenxProperties;
 import org.openprojectx.gateway.core.constant.Constants;
+import org.openprojectx.gateway.core.route.ClusterRoute;
+import org.openprojectx.gateway.core.route.GroupRoute;
 import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.openprojectx.gateway.core.support.DefinitionConverter;
 import org.springframework.stereotype.Component;
@@ -19,10 +21,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * group refresh and match
  */
 @Component
-public class GroupManager {
+public class GroupRouteLocator {
     private final ConcurrentHashMap<String, Flux<GroupRoute>> groupRoutesMap = new ConcurrentHashMap<>();
 
-    public GroupManager(DefinitionConverter definitionConverter, OpenxProperties openxProperties) {
+    public GroupRouteLocator(DefinitionConverter definitionConverter, OpenxProperties openxProperties) {
         List<GroupDefinition> groupDefinitions = openxProperties.getGroups();
         List<GroupRoute> groupRoutes = new ArrayList<>();
         for (GroupDefinition groupDefinition : groupDefinitions) {

@@ -1,6 +1,6 @@
 package org.openprojectx.gateway.core.handler;
 
-import org.openprojectx.gateway.core.route.ApiRouteLocator;
+import org.openprojectx.gateway.core.route.OpenxRouteLocator;
 import org.springframework.cloud.gateway.config.GlobalCorsProperties;
 import org.springframework.cloud.gateway.handler.FilteringWebHandler;
 import org.springframework.cloud.gateway.route.Route;
@@ -14,16 +14,16 @@ import reactor.core.publisher.Mono;
  */
 public class SimpleApiRoutePredicateHandlerMapping extends org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping {
 
-    private final ApiRouteLocator apiRouteLocator;
+    private final OpenxRouteLocator openxRouteLocator;
 
-    public SimpleApiRoutePredicateHandlerMapping(FilteringWebHandler webHandler, RouteLocator routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment, ApiRouteLocator apiRouteLocator) {
+    public SimpleApiRoutePredicateHandlerMapping(FilteringWebHandler webHandler, RouteLocator routeLocator, GlobalCorsProperties globalCorsProperties, Environment environment, OpenxRouteLocator openxRouteLocator) {
         super(webHandler, routeLocator, globalCorsProperties, environment);
-        this.apiRouteLocator = apiRouteLocator;
+        this.openxRouteLocator = openxRouteLocator;
     }
 
     @Override
     protected Mono<Route> lookupRoute(ServerWebExchange exchange) {
-        return apiRouteLocator.lookupRoute(exchange);
+        return openxRouteLocator.lookupRoute(exchange);
     }
 
 }

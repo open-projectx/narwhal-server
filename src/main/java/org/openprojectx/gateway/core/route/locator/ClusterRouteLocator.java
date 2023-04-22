@@ -1,6 +1,7 @@
-package org.openprojectx.gateway.core.route;
+package org.openprojectx.gateway.core.route.locator;
 
 import org.openprojectx.gateway.core.configuration.OpenxProperties;
+import org.openprojectx.gateway.core.route.ClusterRoute;
 import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
 import org.openprojectx.gateway.core.support.DefinitionConverter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -18,11 +19,11 @@ import java.util.List;
  * app refresh and match
  */
 @Component
-public class ClusterManager {
+public class ClusterRouteLocator {
 
     private final Flux<ClusterRoute> appRouteFlux;
 
-    public ClusterManager(OpenxProperties openxProperties, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
+    public ClusterRouteLocator(OpenxProperties openxProperties, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
         List<GatewayFilter> gatewayFilters = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
         List<ClusterDefinition> clusterDefinitions = openxProperties.getApps();
         List<ClusterRoute> clusterRoutes = clusterDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();

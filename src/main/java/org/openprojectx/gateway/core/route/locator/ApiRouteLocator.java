@@ -1,7 +1,9 @@
-package org.openprojectx.gateway.core.route;
+package org.openprojectx.gateway.core.route.locator;
 
 import org.openprojectx.gateway.core.configuration.OpenxProperties;
 import org.openprojectx.gateway.core.constant.Constants;
+import org.openprojectx.gateway.core.route.ApiRoute;
+import org.openprojectx.gateway.core.route.GroupRoute;
 import org.openprojectx.gateway.core.route.definition.ApiDefinition;
 import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.openprojectx.gateway.core.support.DefinitionConverter;
@@ -19,11 +21,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * api refresh and match
  */
 @Component
-public class ApiManager {
+public class ApiRouteLocator {
 
     private final ConcurrentHashMap<String, Flux<ApiRoute>> apiRouteMap = new ConcurrentHashMap<>();
 
-    public ApiManager(OpenxProperties openxProperties, DefinitionConverter definitionConverter) {
+    public ApiRouteLocator(OpenxProperties openxProperties, DefinitionConverter definitionConverter) {
         List<GroupDefinition> groupDefinitions = openxProperties.getGroups();
         for (GroupDefinition groupDefinition : groupDefinitions) {
             String groupId = groupDefinition.getGroupId();
