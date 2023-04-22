@@ -1,8 +1,10 @@
 package org.openprojectx.gateway.core.route;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.openprojectx.gateway.core.route.definition.GroupDefinition;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.web.server.ServerWebExchange;
@@ -13,6 +15,7 @@ import java.util.Map;
 @Getter
 @Builder
 @ToString(of = {"id"})
+@EqualsAndHashCode
 public class GroupRoute {
     private String id;
 
@@ -24,5 +27,7 @@ public class GroupRoute {
 
     @Builder.Default
     private int order = 0;
+
+    private GroupDefinition definition;
 
 }

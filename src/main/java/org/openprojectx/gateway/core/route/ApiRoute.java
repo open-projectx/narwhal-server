@@ -1,8 +1,10 @@
 package org.openprojectx.gateway.core.route;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.openprojectx.gateway.core.route.definition.ApiDefinition;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.cloud.gateway.route.Route;
@@ -14,6 +16,7 @@ import java.util.Map;
 @Getter
 @Builder
 @ToString(of = {"id"})
+@EqualsAndHashCode
 public class ApiRoute {
     private String id;
 
@@ -27,5 +30,7 @@ public class ApiRoute {
 
     @Builder.Default
     private int order = 0;
+
+    private ApiDefinition definition;
 
 }

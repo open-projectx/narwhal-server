@@ -2,7 +2,7 @@ package org.openprojectx.gateway.core.support;
 
 import lombok.RequiredArgsConstructor;
 import org.openprojectx.gateway.core.route.ApiRoute;
-import org.openprojectx.gateway.core.route.AppRoute;
+import org.openprojectx.gateway.core.route.ClusterRoute;
 import org.openprojectx.gateway.core.route.GroupRoute;
 import org.openprojectx.gateway.core.route.definition.ApiDefinition;
 import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
@@ -24,8 +24,8 @@ public class DefinitionConverter {
     /**
      * read the definition yml file and return the definition object
      */
-    public AppRoute convertToAppRoute(ClusterDefinition clusterDefinition) {
-        return AppRoute.builder()
+    public ClusterRoute convertToAppRoute(ClusterDefinition clusterDefinition) {
+        return ClusterRoute.builder()
                 .id(clusterDefinition.getAppId())
                 .predicate(asyncPredicateSupport.createAsyncPredicate(clusterDefinition, clusterDefinition.getPredicates()))
                 .filters(gatewayFilterSupport.createFilters(clusterDefinition.getAppId(), clusterDefinition.getFilters()))

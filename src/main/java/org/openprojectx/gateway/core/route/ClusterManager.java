@@ -20,19 +20,19 @@ import java.util.List;
 @Component
 public class ClusterManager {
 
-    private final Flux<AppRoute> appRouteFlux;
+    private final Flux<ClusterRoute> appRouteFlux;
 
     public ClusterManager(OpenxProperties openxProperties, List<GlobalFilter> globalFilterList, DefinitionConverter definitionConverter) {
         List<GatewayFilter> gatewayFilters = globalFilterList.stream().map(globalFilter -> (GatewayFilter) globalFilter::filter).toList();
         List<ClusterDefinition> clusterDefinitions = openxProperties.getApps();
-        List<AppRoute> appRoutes = clusterDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();
-        for (AppRoute appRoute : appRoutes) {
-            appRoute.getFilters().addAll(gatewayFilters);
+        List<ClusterRoute> clusterRoutes = clusterDefinitions.stream().map(definitionConverter::convertToAppRoute).toList();
+        for (ClusterRoute clusterRoute : clusterRoutes) {
+            clusterRoute.getFilters().addAll(gatewayFilters);
         }
-        appRouteFlux = Flux.fromIterable(appRoutes);
+        appRouteFlux = Flux.fromIterable(clusterRoutes);
     }
 
-    public Mono<AppRoute> match(ServerWebExchange serverWebExchange) {
+    public Mono<ClusterRoute> match(ServerWebExchange serverWebExchange) {
         return appRouteFlux.concatMap(app ->
                 Mono.just(app)
                         .filterWhen(a -> a.getPredicate().apply(serverWebExchange))

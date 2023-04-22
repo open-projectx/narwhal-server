@@ -1,5 +1,6 @@
 package org.openprojectx.gateway.core.route.definition;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @lombok.Data
+@EqualsAndHashCode
 public class ClusterDefinition {
 
     @NotEmpty

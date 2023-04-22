@@ -46,11 +46,11 @@ public class SimpleApiRouteLocator implements ApiRouteLocator {
                     return Mono.just(api.getBackend());
                 })
                 .map(r -> {
-                    AppRoute appRoute = (AppRoute) exchange.getAttributes().get(Constants.CLUSTER_ROUTE);
+                    ClusterRoute clusterRoute = (ClusterRoute) exchange.getAttributes().get(Constants.CLUSTER_ROUTE);
                     GroupRoute groupRoute = (GroupRoute) exchange.getAttributes().get(Constants.GROUP_ROUTE);
                     ApiRoute apiRoute = (ApiRoute) exchange.getAttributes().get(Constants.API_ROUTE);
                     List<GatewayFilter> list = new ArrayList<>();
-                    list.addAll(appRoute.getFilters());
+                    list.addAll(clusterRoute.getFilters());
                     list.addAll(groupRoute.getFilters());
                     list.addAll(apiRoute.getFilters());
                     // backend filters

@@ -33,8 +33,8 @@ public class GroupManager {
     }
 
     public Mono<GroupRoute> match(ServerWebExchange serverWebExchange) {
-        AppRoute appRoute = (AppRoute) serverWebExchange.getAttributes().get(Constants.CLUSTER_ROUTE);
-        String appId = appRoute.getId();
+        ClusterRoute clusterRoute = (ClusterRoute) serverWebExchange.getAttributes().get(Constants.CLUSTER_ROUTE);
+        String appId = clusterRoute.getId();
         return this.groupRoutesMap.get(appId).concatMap(group ->
                 Mono.just(group)
                         .filterWhen(g -> g.getPredicate().apply(serverWebExchange))

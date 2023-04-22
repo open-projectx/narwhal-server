@@ -1,8 +1,10 @@
 package org.openprojectx.gateway.core.route;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.openprojectx.gateway.core.route.definition.ClusterDefinition;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
 import org.springframework.web.server.ServerWebExchange;
@@ -13,7 +15,8 @@ import java.util.Map;
 @Getter
 @Builder
 @ToString(of = {"id"})
-public class AppRoute {
+@EqualsAndHashCode
+public class ClusterRoute {
 
     private String id;
 
@@ -26,5 +29,5 @@ public class AppRoute {
     @Builder.Default
     private int order = 0;
 
-
+    private ClusterDefinition definition;
 }
