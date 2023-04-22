@@ -1,7 +1,6 @@
 package org.openprojectx.gateway.core.definition;
 
 import lombok.EqualsAndHashCode;
-import org.openprojectx.gateway.core.process.ProcessFilter;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
