@@ -1,4 +1,4 @@
-package org.openprojectx.gateway.core;
+package org.openprojectx.gateway.core.configuration;
 
 import org.openprojectx.gateway.core.handler.SimpleApiRoutePredicateHandlerMapping;
 import org.openprojectx.gateway.core.route.OpenxRouteLocator;
