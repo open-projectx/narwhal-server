@@ -1,4 +1,4 @@
-# spring-cloud-gateway-core
+# narwhal-server
 
 '''based on spring-cloud-gateway, not spring-cloud-gateway'''
 this api-gateway is based on spring-cloud-gateway, but not spring-cloud-gateway, it is a simple api-gateway, it is easy
